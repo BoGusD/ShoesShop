@@ -17,25 +17,30 @@ const Header = () => {
               <div className="headerSlideBtn" onClick={sliderBtn}>
                 X
               </div>
-              <div className="headerSlide">Welcome to Bogus Shopping</div>
+              <div className="headerSlide">Welcome to Bogus Shoes</div>
             </div>
           </div>
         )}
+        {/* MENUES (brown) */}
         <div className="headerBg">
+          {/* LEFT SIDE */}
           <div className="homeBtn">
-            <a href="/">Home</a>
+            <a href="/">BoGus Shoes</a>
           </div>
+          {/* RIGHT SIDE */}
           <div className="headerMenu">
-            <a href="/Introduce">Introduce</a>
-          </div>
-          <div className="headerMenu">
-            <a href="/products">Products</a>
-          </div>
-          <div className="headerMenu">
-            <a href="/cart">Cart</a>
-          </div>
-          <div className="headerMenu">
-            <a href="/login">Login</a>
+            <div className="headerList">
+              <a href="/Introduce">Introduce</a>
+            </div>
+            <div className="headerList">
+              <a href="/products">Products</a>
+            </div>
+            <div className="headerList">
+              <a href="/cart">Cart</a>
+            </div>
+            <div className="headerList">
+              <a href="/login">Login</a>
+            </div>
           </div>
         </div>
       </Bg>
