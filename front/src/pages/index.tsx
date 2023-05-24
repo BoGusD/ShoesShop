@@ -3,7 +3,7 @@ import { ItemBg, MainLogo } from "@/styles/IndexStyle";
 import axios from "axios";
 import { useState, useEffect, useLayoutEffect } from "react";
 const Main = () => {
-  const [printshoes, onPrintShoes] = useState<any>([]);
+  const [printshoes, onPrintShoes] = useState<shoesDataType[]>([]);
 
   const [sortMethod, setSortMethod] = useState<string>("");
 
