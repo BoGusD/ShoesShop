@@ -1,13 +1,13 @@
-import { shoesType } from "../dataType/shoesType";
+import { shoesDataType } from "../dataType/shoesDataType";
 const dbClient = require("../service/mysqlConnect");
 
 const controller = {
-  getAllItems: async (): Promise<shoesType[]> => {
+  getAllItems: async (): Promise<shoesDataType[]> => {
     try {
-      return new Promise<shoesType[]>((resolve, reject) => {
+      return new Promise<shoesDataType[]>((resolve, reject) => {
         dbClient.query(
           `SELECT * FROM shopping.item;`,
-          (error: Error, rows: shoesType[]) => {
+          (error: Error, rows: shoesDataType[]) => {
             if (error) {
               reject(error);
               return;
@@ -21,12 +21,12 @@ const controller = {
       throw error;
     }
   },
-  getAscItems: async (): Promise<shoesType[]> => {
+  getAscItems: async (): Promise<shoesDataType[]> => {
     try {
-      return new Promise<shoesType[]>((resolve, reject) => {
+      return new Promise<shoesDataType[]>((resolve, reject) => {
         dbClient.query(
           `SELECT * FROM item ORDER BY price ASC`,
-          (error: Error, rows: shoesType[]) => {
+          (error: Error, rows: shoesDataType[]) => {
             if (error) {
               reject(error);
               return;
@@ -40,12 +40,12 @@ const controller = {
       throw error;
     }
   },
-  getDescItems: async (): Promise<shoesType[]> => {
+  getDescItems: async (): Promise<shoesDataType[]> => {
     try {
-      return new Promise<shoesType[]>((resolve, reject) => {
+      return new Promise<shoesDataType[]>((resolve, reject) => {
         dbClient.query(
           `SELECT * FROM item ORDER BY price DESC`,
-          (error: Error, rows: shoesType[]) => {
+          (error: Error, rows: shoesDataType[]) => {
             if (error) {
               reject(error);
               return;

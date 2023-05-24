@@ -1,11 +1,10 @@
-import { shoes, shoesDataType } from "@/data/shoes";
+import { shoesDataType } from "@/data/shoesDataType";
 import { ItemBg, MainLogo } from "@/styles/IndexStyle";
-import Image from "next/image";
 import axios from "axios";
 import { useState, useEffect, useLayoutEffect } from "react";
 const Main = () => {
   const [printshoes, onPrintShoes] = useState<any>([]);
-  const [load, setLoad] = useState<boolean>(false);
+
   const [sortMethod, setSortMethod] = useState<string>("");
 
   const sortOption = (ele: React.ChangeEvent<HTMLSelectElement>) => {
@@ -14,30 +13,34 @@ const Main = () => {
   };
 
   useEffect(() => {
-    setLoad(true);
-    // if (load) {
-    //   if (printshoes.length === 0) {
-    //     onPrintShoes(shoes);
-    //   } else {
-    //     onPrintShoes((prevPrintshoes: any) => {
-    //       let sortedShoes: shoesDataType[] = [];
-    //       if (sortMethod === "lowPrice") {
-    //         sortedShoes = [...prevPrintshoes].sort(
-    //           (a: shoesDataType, b: shoesDataType) => a.price - b.price
-    //         );
-    //       } else if (sortMethod === "highPrice") {
-    //         sortedShoes = [...prevPrintshoes].sort(
-    //           (a: shoesDataType, b: shoesDataType) => b.price - a.price
-    //         );
-    //       }
-    //       return sortedShoes;
-    //     });
-    //   }
-    // }
-  }, [load, sortMethod]);
+    if (sortMethod === "lowPrice") {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:4000/shoes/ascPrice"
+          );
+          onPrintShoes(response.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchData();
+    } else if (sortMethod === "highPrice") {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:4000/shoes/descPrice"
+          );
+          onPrintShoes(response.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchData();
+    }
+  }, [sortMethod]);
 
   useLayoutEffect(() => {
-    setLoad(false);
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:4000/shoes/");
@@ -66,27 +69,20 @@ const Main = () => {
         <option value="male">여자</option>
       </select>
 
-      {load ? (
-        <ItemBg>
-          {printshoes.map((ele: any) => (
-            <div key={ele.itemName} className="shoppingItem">
-              <img src={ele.itemImg} alt={ele.itemName} width={100} />
-              <div className="itemName">{ele.itemName}</div>
-              <div className="itemPrice">{ele.price}원</div>
-            </div>
-          ))}
-        </ItemBg>
-      ) : (
-        <ItemBg>
-          {printshoes.map((ele: any) => (
-            <div key={ele.itemName} className="shoppingItem">
-              <img src={ele.itemImg} alt={ele.itemName} width={100} />
-              <div className="itemName">{ele.itemName}</div>
-              <div className="itemPrice">{ele.price}원</div>
-            </div>
-          ))}
-        </ItemBg>
-      )}
+      <ItemBg>
+        {printshoes.map((ele: shoesDataType) => (
+          <div key={ele.itemName} className="shoppingItem">
+            <img
+              src={ele.itemImg}
+              alt={ele.itemName}
+              width={100}
+              height={100}
+            />
+            <div className="itemName">{ele.itemName}</div>
+            <div className="itemPrice">{ele.price}원</div>
+          </div>
+        ))}
+      </ItemBg>
     </>
   );
 };
