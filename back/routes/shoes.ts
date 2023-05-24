@@ -5,7 +5,6 @@ const router = express.Router();
 router.get("/", async (req: Request, res: Response) => {
   try {
     const result = await mysql.getAllItems();
-    console.log(result);
     res.send(JSON.stringify(result));
   } catch (error) {
     console.error(error);
@@ -15,7 +14,6 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/ascPrice", async (req: Request, res: Response) => {
   try {
     const result = await mysql.getAscItems();
-    console.log(result);
     res.send(JSON.stringify(result));
   } catch (error) {
     console.error(error);
@@ -25,7 +23,6 @@ router.get("/ascPrice", async (req: Request, res: Response) => {
 router.get("/descPrice", async (req: Request, res: Response) => {
   try {
     const result = await mysql.getDescItems();
-    console.log(result);
     res.send(JSON.stringify(result));
   } catch (error) {
     console.error(error);

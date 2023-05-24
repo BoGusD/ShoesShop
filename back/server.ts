@@ -7,7 +7,7 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
-
+server.use("/img", express.static("img"));
 // dotenv
 require("dotenv").config();
 
@@ -21,9 +21,9 @@ const PORT = process.env.PORT;
 // server.get("/", (req: Request, res: Response) => {
 //   res.json({ message: "Server is RUNNING" });
 // });
-const shoppingRouter = require("./routes/shopping");
+const shoppingRouter = require("./routes/shoes");
 
-server.use("/", shoppingRouter);
+server.use("/shoes", shoppingRouter);
 
 server.use((err: any, req: Request, res: Response) => {
   console.log(err.stack);
