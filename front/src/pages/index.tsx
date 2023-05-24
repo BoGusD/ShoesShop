@@ -11,10 +11,9 @@ const Main = () => {
     const selectedMethod = ele.target.value;
     setSortMethod(selectedMethod);
   };
+
   useEffect(() => {
     setLoad(true);
-  }, [sortMethod]);
-  useEffect(() => {
     if (load) {
       if (printshoes.length === 0) {
         onPrintShoes(shoes);

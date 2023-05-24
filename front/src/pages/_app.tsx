@@ -2,7 +2,8 @@ import type { AppProps } from "next/app";
 import styled from "styled-components";
 
 //Componet
-import Header from "./Header";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Bg = styled.div`
   * {
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Bg>
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </Bg>
     </>
   );

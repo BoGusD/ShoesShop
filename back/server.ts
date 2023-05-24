@@ -13,15 +13,27 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 
-const options = {
-  key: fs.readFileSync(`${process.env.SSL_KEY}`),
-  cert: fs.readFileSync(`${process.env.SSL_CRT}`),
-};
+// const options = {
+//   key: fs.readFileSync(`${process.env.SSL_KEY}`),
+//   cert: fs.readFileSync(`${process.env.SSL_CRT}`),
+// };
 
-server.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Server is RUNNING" });
+// server.get("/", (req: Request, res: Response) => {
+//   res.json({ message: "Server is RUNNING" });
+// });
+const shoppingRouter = require("./routes/shopping");
+
+server.use("/", shoppingRouter);
+
+server.use((err: any, req: Request, res: Response) => {
+  console.log(err.stack);
+  res.status(err.statusCode || 500);
+  res.send(err.message);
+});
+server.listen(PORT, () => {
+  console.log("서버 연결 완료");
 });
 
-https.createServer(options, server).listen(PORT, () => {
-  console.log("HTTPS server 구동");
-});
+// https.createServer(options, server).listen(PORT, () => {
+//   console.log("HTTPS server 구동");
+// });
