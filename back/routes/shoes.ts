@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-const mysql = require("../controller/shoesController").controller;
+const mysql = require("../controller/shoesGetController").controller;
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
