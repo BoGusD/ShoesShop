@@ -6,22 +6,31 @@ const Main = () => {
   const [printshoes, onPrintShoes] = useState<shoesDataType[]>([]);
 
   const [sortMethod, setSortMethod] = useState<string>("");
+  const [genderMethod, setGenderMethod] = useState<string>("");
 
   const sortOption = (ele: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMethod = ele.target.value;
     setSortMethod(selectedMethod);
   };
+  const genderOption = (ele: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedGender = ele.target.value;
+    setGenderMethod(selectedGender);
+  };
 
   useEffect(() => {
+    console.log("useeffect 작동 확인");
     if (sortMethod === "lowPrice") {
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:4000/shoes/ascPrice"
+            "http://localhost:4000/shoes/ascPrice",
+            {
+              params: { gender: `${genderMethod}` },
+            }
           );
           onPrintShoes(response.data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("데이터를 가져오는 중 오류 발생:", error);
         }
       };
       fetchData();
@@ -29,23 +38,25 @@ const Main = () => {
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:4000/shoes/descPrice"
+            "http://localhost:4000/shoes/descPrice",
+            {
+              params: { gender: `${genderMethod}` },
+            }
           );
           onPrintShoes(response.data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("데이터를 가져오는 중 오류 발생:", error);
         }
       };
       fetchData();
     }
-  }, [sortMethod]);
+  }, [sortMethod, genderMethod]);
 
   useLayoutEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:4000/shoes/");
         onPrintShoes(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -63,10 +74,11 @@ const Main = () => {
         <option value="lowPrice">낮은가격순</option>
         <option value="highPrice">높은가격순</option>
       </select>
-      <select>
+      <select onChange={genderOption}>
         성별
-        <option value="female">남자</option>
-        <option value="male">여자</option>
+        <option value="default">혼성</option>
+        <option value="male">남자</option>
+        <option value="female">여자</option>
       </select>
 
       <ItemBg>

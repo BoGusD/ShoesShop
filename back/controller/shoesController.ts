@@ -21,38 +21,99 @@ const controller = {
       throw error;
     }
   },
-  getAscItems: async (): Promise<shoesDataType[]> => {
+  getAscItems: async (gender: string): Promise<shoesDataType[]> => {
+    console.log("gender", gender);
     try {
       return new Promise<shoesDataType[]>((resolve, reject) => {
-        dbClient.query(
-          `SELECT * FROM item ORDER BY price ASC`,
-          (error: Error, rows: shoesDataType[]) => {
-            if (error) {
-              reject(error);
-              return;
+        if (gender === "male") {
+          dbClient.query(
+            `SELECT * FROM item
+            WHERE gender = 'male'
+            ORDER BY price ASC;
+            `,
+            (error: Error, rows: shoesDataType[]) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(rows);
             }
-            resolve(rows);
-          }
-        );
+          );
+        } else if (gender === "female") {
+          dbClient.query(
+            `SELECT * FROM item
+            WHERE gender = 'female'
+            ORDER BY price ASC;
+            `,
+            (error: Error, rows: shoesDataType[]) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(rows);
+            }
+          );
+        } else {
+          dbClient.query(
+            `SELECT * FROM item ORDER BY price ASC`,
+            (error: Error, rows: shoesDataType[]) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(rows);
+            }
+          );
+        }
       });
     } catch (error) {
       console.error(error);
       throw error;
     }
   },
-  getDescItems: async (): Promise<shoesDataType[]> => {
+  getDescItems: async (gender: string): Promise<shoesDataType[]> => {
     try {
       return new Promise<shoesDataType[]>((resolve, reject) => {
-        dbClient.query(
-          `SELECT * FROM item ORDER BY price DESC`,
-          (error: Error, rows: shoesDataType[]) => {
-            if (error) {
-              reject(error);
-              return;
+        if (gender === "male") {
+          dbClient.query(
+            `SELECT * FROM item
+            WHERE gender = 'male'
+            ORDER BY price DESC;
+            `,
+            (error: Error, rows: shoesDataType[]) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(rows);
             }
-            resolve(rows);
-          }
-        );
+          );
+        } else if (gender === "female") {
+          dbClient.query(
+            `SELECT * FROM item
+            WHERE gender = 'female'
+            ORDER BY price DESC;
+            `,
+            (error: Error, rows: shoesDataType[]) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(rows);
+            }
+          );
+        } else {
+          dbClient.query(
+            `SELECT * FROM item ORDER BY price DESC`,
+            (error: Error, rows: shoesDataType[]) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(rows);
+            }
+          );
+        }
       });
     } catch (error) {
       console.error(error);

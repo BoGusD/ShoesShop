@@ -20,10 +20,10 @@ export const ItemBg = styled.div`
   /* align-items: flex-start; */
   .shoppingItem {
     display: inline-block;
-    /* width: 25%; */
-    margin: 0 200px;
-    margin-right: 80px; /* 아이템 간격 조정 */
-    margin-bottom: 20px; /* 아이템 간격 조정 */
+    width: 25%;
+    margin: 0 60px;
+    margin-right: 60px; /* 아이템 간격 조정 */
+    margin-bottom: 40px; /* 아이템 간격 조정 */
     color: black;
     text-align: center;
   }
