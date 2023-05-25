@@ -4,7 +4,7 @@ const dbClient = require("../service/mysqlConnect");
 const controller = {
   getAllItems: async (): Promise<shoesDataType[]> => {
     try {
-      const query = `SELECT * FROM shopping.item;`;
+      const query = `SELECT * FROM item;`;
       const rows = await executeQuery(query);
       return rows;
     } catch (error) {
@@ -40,12 +40,14 @@ const controller = {
 
       if (gender === "male" || gender === "female") {
         query += ` WHERE gender = ?`;
+
         queryParams.push(gender);
       }
 
       query += ` ORDER BY price DESC`;
 
       const rows = await executeQuery(query, queryParams);
+
       return rows;
     } catch (error) {
       console.error(error);
