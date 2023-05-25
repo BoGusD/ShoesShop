@@ -54,8 +54,11 @@ const controller = {
   },
 };
 
-const executeQuery = (query: string, params: string[] = []): Promise<any> =>
-  new Promise<any>((resolve, reject) => {
+const executeQuery = (
+  query: string,
+  params: string[] = []
+): Promise<shoesDataType[]> =>
+  new Promise<shoesDataType[]>((resolve, reject) => {
     dbClient.query(query, params, (error: Error, rows: shoesDataType[]) => {
       if (error) {
         reject(error);

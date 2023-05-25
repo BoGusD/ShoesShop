@@ -17,7 +17,6 @@ const handleRequest = async (
 };
 
 router.get("/", async (req: Request, res: Response) => {
-  console.log("query", req.query);
   handleRequest(req, res, mysql.getAllItems);
 });
 
