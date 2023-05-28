@@ -21,13 +21,11 @@ const Header = () => {
             </div>
           </div>
         )}
-        {/* MENUES (brown) */}
+
         <div className="headerBg">
-          {/* LEFT SIDE */}
           <div className="homeBtn">
             <a href="/">BoGus Shoes</a>
           </div>
-          {/* RIGHT SIDE */}
           <div className="headerMenu">
             <div className="headerList">
               <a href="/Introduce">Introduce</a>

@@ -35,7 +35,6 @@ export const Bg = styled.div`
   }
 
   .headerBg {
-    /* min-width: 600px; */
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -43,22 +42,26 @@ export const Bg = styled.div`
     height: 80px;
     line-height: 80px;
     border: 1px solid black;
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
       justify-content: space-between;
       width: 100%;
     }
     .homeBtn {
-      margin-left: 10%;
-      width: 20%;
+      margin-left: 5%;
+      width: 10%;
       display: block;
       a {
         color: pink;
         background: linear-gradient(to bottom, pink, white, green);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        white-space: nowrap;
         :hover {
           -webkit-text-fill-color: black;
         }
+      }
+      @media (max-width: 500px) {
+        display: none;
       }
     }
     .headerMenu {
@@ -75,7 +78,10 @@ export const Bg = styled.div`
         }
       }
       @media (max-width: 500px) {
-        font-size: 9px;
+        width: 100%;
+        margin-top: 7%;
+        justify-items: center;
+        font-size: 5px;
         line-height: 21px;
       }
     }
