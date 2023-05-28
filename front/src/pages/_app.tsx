@@ -10,6 +10,7 @@ const Bg = styled.div`
     text-decoration-line: none;
     list-style: none;
     font-weight: bold;
+    overflow: hidden;
   }
 `;
 function MyApp({ Component, pageProps }: AppProps) {

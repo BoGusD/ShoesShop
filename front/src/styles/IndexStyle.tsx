@@ -21,7 +21,6 @@ export const MainTitle = styled.div`
   .searchLayOut {
     flex: 1;
     margin-right: auto;
-    margin-left: 10px;
   }
   .search input {
     width: 45%;
@@ -33,6 +32,7 @@ export const MainTitle = styled.div`
     background-color: #4caf50;
     color: white;
     border: none;
+    margin-bottom: 10px;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
