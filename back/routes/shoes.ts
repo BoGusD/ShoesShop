@@ -17,9 +17,13 @@ const handleRequest = async (
 };
 
 router.get("/", async (req: Request, res: Response) => {
-  handleRequest(req, res, mysql.getAllItems);
+  const keyword = req.query.keyword;
+  if (keyword) {
+    handleRequest(req, res, mysql.getKeyWordItems.bind(null, keyword));
+  } else {
+    handleRequest(req, res, mysql.getAllItems);
+  }
 });
-
 router.get("/ascPrice", async (req: Request, res: Response) => {
   const gender = req.query.gender;
   handleRequest(req, res, mysql.getAscItems.bind(null, gender));

@@ -2,103 +2,108 @@ import { shoesDataType } from "@/data/shoesDataType";
 import { ItemBg, MainLogo, MainTitle } from "@/styles/IndexStyle";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
+
 const Main = () => {
-  const [printshoes, onPrintShoes] = useState<shoesDataType[]>([]);
+  const [printshoes, setPrintShoes] = useState<shoesDataType[]>([]);
   const [sortMethod, setSortMethod] = useState<string>("");
   const [genderMethod, setGenderMethod] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
+  const [noResults, setNoResults] = useState<boolean>(false);
 
   const router = useRouter();
 
-  const sortOption = (ele: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedMethod = ele.target.value;
+  const sortOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedMethod = e.target.value;
     setSortMethod(selectedMethod);
   };
-  const genderOption = (ele: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedGender = ele.target.value;
+
+  const genderOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedGender = e.target.value;
     setGenderMethod(selectedGender);
   };
 
-  useEffect(() => {
-    console.log("useeffect 작동 확인");
-    if (sortMethod === "lowPrice") {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            "http://localhost:4000/shoes/ascPrice",
-            {
-              params: { gender: `${genderMethod}` },
-            }
-          );
-          onPrintShoes(response.data);
-        } catch (error) {
-          console.error("데이터를 가져오는 중 오류 발생:", error);
-        }
-      };
-      fetchData();
-    } else if (sortMethod === "highPrice") {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            "http://localhost:4000/shoes/descPrice",
-            {
-              params: { gender: `${genderMethod}` },
-            }
-          );
-          onPrintShoes(response.data);
-        } catch (error) {
-          console.error("데이터를 가져오는 중 오류 발생:", error);
-        }
-      };
-      fetchData();
-    }
-  }, [sortMethod, genderMethod]);
-
-  const searchItem = (ele: any) => {
-    if ((ele.key = "enter")) {
+  const searchItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setKeyword(e.currentTarget.value);
     }
   };
+
   const addItemPage = () => {
     router.push("/item/addItem");
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/shoes/");
-        onPrintShoes(response.data);
+        let response;
+        if (sortMethod === "lowPrice") {
+          response = await axios.get("http://localhost:4000/shoes/ascPrice", {
+            params: { gender: genderMethod },
+          });
+        } else if (sortMethod === "highPrice") {
+          response = await axios.get("http://localhost:4000/shoes/descPrice", {
+            params: { gender: genderMethod },
+          });
+        } else {
+          response = await axios.get("http://localhost:4000/shoes/");
+        }
+        setPrintShoes(response.data);
+      } catch (error) {
+        console.error("데이터를 가져오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchData();
+  }, [sortMethod, genderMethod]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/shoes/", {
+          params: { keyword },
+        });
+        setPrintShoes(response.data);
+        setNoResults(response.data.length === 0);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-  }, []);
+
+    if (keyword) {
+      fetchData();
+    }
+  }, [keyword]);
 
   return (
     <>
       <MainLogo>
-        <img src="./logo.png" className="MainLogo" />
+        <img src="./logo.png" className="MainLogo" alt="Logo" />
       </MainLogo>
       <MainTitle>
         <div className="search">
-          <select onChange={sortOption}>
-            카테고리
+          <label htmlFor="sortOption">카테고리</label>
+          <select id="sortOption" onChange={sortOption}>
+            <option value="">전체</option>
             <option value="lowPrice">낮은가격순</option>
             <option value="highPrice">높은가격순</option>
           </select>
-          <select onChange={genderOption}>
-            성별
+
+          <label htmlFor="genderOption">성별</label>
+          <select id="genderOption" onChange={genderOption}>
             <option value="default">혼성</option>
             <option value="male">남자</option>
             <option value="female">여자</option>
           </select>
-          <div className="searchLayOut">
+
+          <div className="searchLayout">
             <input
               placeholder="검색"
               name="searchHolder"
               onKeyPress={searchItem}
             />
           </div>
+
           <div>
             <button className="addItemBtn" onClick={addItemPage}>
               아이템 추가하기
@@ -120,6 +125,8 @@ const Main = () => {
             <div className="itemPrice">{ele.price}원</div>
           </div>
         ))}
+
+        {noResults && <div>해당 키워드로 검색되는 신발이 없습니다!!</div>}
       </ItemBg>
     </>
   );

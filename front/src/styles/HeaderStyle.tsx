@@ -29,7 +29,8 @@ export const Bg = styled.div`
       .headerSlideBtn {
         position: absolute;
         display: block;
-        right: 1.5%;
+        right: 2%;
+        line-height: 30px;
       }
     }
   }

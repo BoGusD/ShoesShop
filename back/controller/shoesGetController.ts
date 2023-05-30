@@ -12,6 +12,18 @@ const controller = {
       throw error;
     }
   },
+  getKeyWordItems: async (data: string): Promise<shoesDataType[]> => {
+    console.log("data", data);
+    try {
+      const query = `SELECT * FROM item
+      WHERE itemName LIKE '%${data}%';`;
+      const rows = await executeQuery(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
 
   getAscItems: async (gender: string): Promise<shoesDataType[]> => {
     try {
