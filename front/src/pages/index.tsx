@@ -32,6 +32,9 @@ const Main = () => {
   const addItemPage = () => {
     router.push("/item/addItem");
   };
+  const moveMain = () => {
+    router.push("/");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,7 +92,12 @@ const Main = () => {
   return (
     <>
       <MainLogo>
-        <img src="./logo.png" className="MainLogo" alt="Logo" />
+        <img
+          src="../logo.png"
+          className="mainLogo"
+          alt="Logo"
+          onClick={moveMain}
+        />
       </MainLogo>
       <MainTitle>
         <div className="search">

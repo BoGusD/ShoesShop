@@ -13,7 +13,6 @@ const controller = {
     }
   },
   getKeyWordItems: async (data: string): Promise<shoesDataType[]> => {
-    console.log("data", data);
     try {
       const query = `SELECT * FROM item
       WHERE itemName LIKE '%${data}%';`;
@@ -68,7 +67,18 @@ const controller = {
   },
   addItem: async (data: shoesDataType) => {
     try {
-      const query = `INSERT INTO item (id,itemImg, price, gender, itemName) VALUES ('${data.id}','${data.itemImg}', '${data.price}', '${data.gender}', '${data.itemTitle}');`;
+      // // 중복 체크
+      // const duplicateCheckQuery = `SELECT COUNT(*) AS count FROM item WHERE itemName = '${data.itemTitle}';`;
+      // const duplicateCheckResult = await executeQuery(duplicateCheckQuery);
+      // const duplicateCount: number = duplicateCheckResult[0].count;
+
+      // if (duplicateCount > 0) {
+      //   // 중복된 데이터가 이미 존재하는 경우
+      //   throw new Error("중복된 데이터입니다.");
+      // }
+
+      // 중복된 데이터가 없는 경우 데이터 삽입
+      const query = `INSERT INTO item (id, itemImg, price, gender, itemName) VALUES ('${data.id}', '${data.itemImg}', '${data.price}', '${data.gender}', '${data.itemTitle}');`;
       const rows = await executeQuery(query);
       return rows;
     } catch (error) {

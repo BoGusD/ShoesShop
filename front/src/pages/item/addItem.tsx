@@ -1,6 +1,7 @@
-import { useState, ChangeEvent } from "react";
 import axios from "axios";
-import { FormContainer } from "@/styles/item/addItemStyle";
+import { useState, ChangeEvent } from "react";
+import { FormContainer, MainLogo } from "@/styles/item/addItemStyle";
+import { useRouter } from "next/router";
 
 const AddItem = () => {
   const [id, setId] = useState("");
@@ -8,6 +9,8 @@ const AddItem = () => {
   const [itemImg, setItemImg] = useState<File | null>(null);
   const [price, setPrice] = useState("");
   const [gender, setGender] = useState("default");
+
+  const router = useRouter();
 
   const handleId = (e: ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -32,6 +35,10 @@ const AddItem = () => {
     setGender(e.target.value);
   };
 
+  const moveMain = () => {
+    router.push("/");
+  };
+
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
@@ -51,6 +58,7 @@ const AddItem = () => {
         }
       );
       console.log(response.data); // 서버로부터의 응답 데이터
+      router.push("/");
     } catch (error) {
       console.error("데이터 전송 중 오류 발생:", error);
     }
@@ -58,6 +66,14 @@ const AddItem = () => {
 
   return (
     <>
+      <MainLogo>
+        <img
+          src="../logo.png"
+          className="mainLogo"
+          alt="Logo"
+          onClick={moveMain}
+        />
+      </MainLogo>
       <FormContainer>
         <input
           type="text"

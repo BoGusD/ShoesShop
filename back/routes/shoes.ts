@@ -61,7 +61,6 @@ router.post(
   "/addItem",
   upload.array("itemImg", 5),
   (req: Request, res: Response) => {
-    console.log(req.files);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
     const {
       id,
@@ -83,7 +82,6 @@ router.post(
       gender,
       itemImg: imgSrc,
     };
-    console.log("data", data);
 
     handleRequest(req, res, mysql.addItem.bind(null, data));
   }

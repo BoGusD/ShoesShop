@@ -1,4 +1,16 @@
 import styled from "styled-components";
+export const MainLogo = styled.div`
+  display: flex;
+  justify-content: center;
+
+  .mainLogo {
+    margin-top: 50px;
+    width: 300px;
+    @media (max-width: 400px) {
+      width: 150px;
+    }
+  }
+`;
 
 export const FormContainer = styled.div`
   display: flex;

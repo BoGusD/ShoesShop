@@ -4,11 +4,12 @@ export const MainLogo = styled.div`
   display: flex;
   justify-content: center;
 
-  .MainLogo {
+  .mainLogo {
     margin-top: 50px;
     width: 300px;
-  }
-  @media (min-width: 500px) {
+    @media (max-width: 400px) {
+      width: 150px;
+    }
   }
 `;
 
