@@ -107,7 +107,7 @@ const Main = () => {
             <option value="female">여자</option>
           </select>
 
-          <div className="searchLayout">
+          <div className="searchLayOut">
             <input
               placeholder="검색"
               name="searchHolder"
@@ -115,11 +115,9 @@ const Main = () => {
             />
           </div>
 
-          <div>
-            <button className="addItemBtn" onClick={addItemPage}>
-              아이템 추가하기
-            </button>
-          </div>
+          <button className="addItemBtn" onClick={addItemPage}>
+            아이템 추가하기
+          </button>
         </div>
       </MainTitle>
 

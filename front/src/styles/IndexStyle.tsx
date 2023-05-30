@@ -23,10 +23,14 @@ export const MainTitle = styled.div`
     margin-right: auto;
   }
   .search input {
-    width: 45%;
+    width: 20%;
     padding: 6px;
-    border: 1px solid #ccc;
+    /* margin-left: auto; */
+    border: 1px solid black;
     border-radius: 4px;
+    @media (min-width: 768px) {
+      margin-left: 10px;
+    }
   }
   .addItemBtn {
     background-color: #4caf50;
@@ -36,6 +40,10 @@ export const MainTitle = styled.div`
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+    margin-left: auto;
+    @media (min-width: 768px) {
+      margin-left: auto;
+    }
   }
   @media (max-width: 768px) {
     .search {
