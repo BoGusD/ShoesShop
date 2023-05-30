@@ -7,6 +7,7 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
+server.use("/shoeImgs", express.static("shoeImgs"));
 server.use("/img", express.static("img"));
 // dotenv
 require("dotenv").config();
