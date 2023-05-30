@@ -126,6 +126,7 @@ const Main = () => {
       <ItemBg>
         {printshoes.map((ele: shoesDataType) => (
           <div key={ele.itemName} className="shoppingItem">
+            <div className="itemId">{ele.id}</div>
             <img
               src={ele.itemImg}
               alt={ele.itemName}

@@ -68,7 +68,7 @@ const controller = {
   },
   addItem: async (data: shoesDataType) => {
     try {
-      const query = `INSERT INTO item (itemImg, price, gender, itemName) VALUES ('${data.itemImg}', '${data.price}', '${data.gender}', '${data.itemTitle}');`;
+      const query = `INSERT INTO item (id,itemImg, price, gender, itemName) VALUES ('${data.id}','${data.itemImg}', '${data.price}', '${data.gender}', '${data.itemTitle}');`;
       const rows = await executeQuery(query);
       return rows;
     } catch (error) {
