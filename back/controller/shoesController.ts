@@ -66,6 +66,16 @@ const controller = {
       throw error;
     }
   },
+  addItem: async (data: shoesDataType) => {
+    try {
+      const query = `INSERT INTO item (itemImg, price, gender, itemName) VALUES ('${data.itemImg}', '${data.price}', '${data.gender}', '${data.itemTitle}');`;
+      const rows = await executeQuery(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
 };
 
 const executeQuery = (

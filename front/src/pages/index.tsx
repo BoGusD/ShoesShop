@@ -2,7 +2,7 @@ import { shoesDataType } from "@/data/shoesDataType";
 import { ItemBg, MainLogo, MainTitle } from "@/styles/IndexStyle";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 
 const Main = () => {
   const [printshoes, setPrintShoes] = useState<shoesDataType[]>([]);
@@ -13,17 +13,17 @@ const Main = () => {
 
   const router = useRouter();
 
-  const sortOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const sortOption = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedMethod = e.target.value;
     setSortMethod(selectedMethod);
   };
 
-  const genderOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const genderOption = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedGender = e.target.value;
     setGenderMethod(selectedGender);
   };
 
-  const searchItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const searchItem = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setKeyword(e.currentTarget.value);
     }
@@ -38,15 +38,23 @@ const Main = () => {
       try {
         let response;
         if (sortMethod === "lowPrice") {
-          response = await axios.get("http://localhost:4000/shoes/ascPrice", {
-            params: { gender: genderMethod },
-          });
+          response = await axios.get(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/shoes/ascPrice`,
+            {
+              params: { gender: genderMethod },
+            }
+          );
         } else if (sortMethod === "highPrice") {
-          response = await axios.get("http://localhost:4000/shoes/descPrice", {
-            params: { gender: genderMethod },
-          });
+          response = await axios.get(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/shoes/descPrice`,
+            {
+              params: { gender: genderMethod },
+            }
+          );
         } else {
-          response = await axios.get("http://localhost:4000/shoes/");
+          response = await axios.get(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/shoes/`
+          );
         }
         setPrintShoes(response.data);
       } catch (error) {
@@ -60,9 +68,12 @@ const Main = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/shoes/", {
-          params: { keyword },
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/shoes/`,
+          {
+            params: { keyword },
+          }
+        );
         setPrintShoes(response.data);
         setNoResults(response.data.length === 0);
       } catch (error) {
@@ -126,7 +137,7 @@ const Main = () => {
           </div>
         ))}
 
-        {noResults && <div>해당 키워드로 검색되는 신발이 없습니다!!</div>}
+        {noResults && <div>해당 키워드로 검색되는 신발이 없습니다</div>}
       </ItemBg>
     </>
   );

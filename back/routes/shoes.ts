@@ -2,7 +2,8 @@ import express, { Request, Response, Router } from "express";
 import multer, { StorageEngine } from "multer";
 import fs from "fs";
 
-const mysql = require("../controller/shoesGetController").controller;
+const mysql = require("../controller/shoesController").controller;
+
 const router = express.Router();
 
 const dir: string = "./shoeImgs";
@@ -69,11 +70,11 @@ router.post(
       gender,
     }: { id: string; itemTitle: string; price: string; gender: string } =
       req.body;
-    const imgSrc: string = req.files
-      ? `${process.env.SERVER_URL}/shoeImgs/${
-          (req.files as Express.Multer.File[])[0]?.filename
-        }`
-      : "";
+    const files = req.files as Express.Multer.File[];
+    const imgSrc: string =
+      files.length > 0
+        ? `${process.env.SERVER_URL}/shoeImgs/${files[0]?.filename}`
+        : "";
 
     const data = {
       id,
@@ -84,7 +85,7 @@ router.post(
     };
     console.log("data", data);
 
-    handleRequest(req, res, mysql.getDescItems.bind(null, data));
+    handleRequest(req, res, mysql.addItem.bind(null, data));
   }
 );
 
