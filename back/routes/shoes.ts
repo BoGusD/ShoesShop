@@ -70,10 +70,10 @@ router.post(
     }: { id: string; itemTitle: string; price: string; gender: string } =
       req.body;
     const files = req.files as Express.Multer.File[];
-    const imgSrc: string =
-      files.length > 0
-        ? `${process.env.SERVER_URL}/shoeImgs/${files[0]?.filename}`
-        : "";
+    const imgSrc: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      imgSrc.push(`${process.env.SERVER_URL}/shoeImgs/${files[i]?.filename}`);
+    }
 
     const data = {
       id,
